@@ -1,0 +1,34 @@
+{
+    "view engines": {
+        "js": {
+            "module": "path:./templates/index",
+            "renderer": "compiledDust",
+            "name": "dust"
+        },
+        "dust": {
+            "module": "path:./templates/index",
+            "renderer": "dust",
+            "name": "dust"
+        }
+    },
+
+    "middleware": {
+        "favicon": {
+            "enabled": false
+        },
+        "compress": {
+            "enabled": true
+        },
+        "shutdown": {
+            "module": "kraken.next/middleware/shutdown"
+        },
+        "multipart": {
+            "module": "kraken.next/middleware/multipart"
+        }
+    },
+
+    "express": {
+        "view engine": "js",
+        "views": "path:./bin/views"
+    }
+}

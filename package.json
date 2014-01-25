@@ -1,0 +1,19 @@
+{
+  "name": "krakenew",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "kraken.next": "git://github.com/totherik/kraken.next.git",
+    "express": "~3.4.8",
+    "dustjs-linkedin": "~2.3.1",
+    "dustjs-onload-context": "git://github.com/totherik/dustjs-onload-context.git",
+    "consolidate": "~0.10.0",
+    "async": "~0.2.10"
+  }
+}

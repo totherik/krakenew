@@ -1,0 +1,6 @@
+{
+    "express": {
+        "view engine": "dust",
+        "views": "path:./views"
+    }
+}
