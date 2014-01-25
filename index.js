@@ -5,14 +5,18 @@ var express = require('express'),
     engine = require('./lib/engine');
 
 
-engine.viewProvider.set('index', function (name, context, cb) {
+function views(name, context, cb) {
     var resolved = context.get('alt');
     if (resolved) {
         name = name + '_' + resolved;
     }
 
     cb(null, name);
-});
+}
+
+
+engine.viewProvider.set('index', views);
+engine.viewProvider.set('partial', views);
 
 
 engine.dataProvider.set('index', function (name, context, cb) {
