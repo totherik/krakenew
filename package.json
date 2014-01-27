@@ -12,7 +12,7 @@
     "kraken.next": "git://github.com/totherik/kraken.next.git",
     "express": "~3.4.8",
     "dustjs-linkedin": "~2.3.1",
-    "dustjs-onload-context": "git://github.com/totherik/dustjs-onload-context.git",
+    "dustjs-onload-context": "~0.0.1",
     "consolidate": "~0.10.0",
     "async": "~0.2.10",
     "graceful-fs": "~2.0.1"

@@ -1,1 +1,10 @@
-Hello, {name}, how's {>"partial"/}?
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{name}</title>
+    </head>
+    <body>
+        {>"greeting"/}
+        <p>Hello, {name}, how's {>"partial"/}?</p>
+    </body>
+</html>

@@ -5,9 +5,14 @@
             "renderer": "compiledDust",
             "name": "dust"
         },
-        "dust": {
+        "dust_orig": {
             "module": "path:./templates/index",
             "renderer": "dust",
+            "name": "dust"
+        },
+        "dust": {
+            "module": "path:./templates/index",
+            "renderer": "streamedDust",
             "name": "dust"
         }
     },
@@ -17,7 +22,7 @@
             "enabled": false
         },
         "compress": {
-            "enabled": true
+            "enabled": false
         },
         "shutdown": {
             "module": "kraken.next/middleware/shutdown"

@@ -1,1 +1,10 @@
-I'm sorry, {>"partial"/}, I'm afraid I can't do that. Ask {name}.
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{name}</title>
+</head>
+    <body>
+        {>"greeting"/}
+        <p>I'm sorry, {>"partial"/}, I'm afraid I can't do that. Ask {name}.</p>
+    </body>
+</html>

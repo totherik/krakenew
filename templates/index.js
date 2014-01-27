@@ -2,55 +2,67 @@
 
 var fs = require('fs'),
     path = require('path'),
+    River = require('./river'),
     dust = require('dustjs-linkedin');
 
 // is this for reals?
 dust.silenceErrors = true;
 
-exports.dust = function (file, options, fn) {
-    var ext, name;
 
-    ext = options.settings.ext = path.extname(file);
-    name = path.relative(options.settings.views, file);
-    name = name.replace(ext, '');
+function loadSourcePreprocessor(data, name) {
+    dust.loadSource(data);
+}
 
-    dust.onLoad = dust.onLoad || function (name, fn) {
-        fs.readFile(file, 'utf8', function (err, data) {
-            try {
 
-                !err && dust.loadSource(dust.compile(data, name));
+function compileAndLoadPreprocessor(data, name) {
+    loadSourcePreprocessor(dust.compile(data, name));
+}
 
-            } catch (error) {
-                err = error;
-            } finally {
-                fn(err);
-            }
-        });
-    };
 
+function renderHandler(name, options, fn) {
     dust.render(name, options, fn);
-};
+}
 
 
-exports.compiledDust = function (file, options, fn) {
-    var name;
+function streamHandler(name, options, fn) {
+    fn(null, new River(dust.stream(name, options)));
+}
 
-    name = path.relative(options.settings.views, file);
-    name = name.replace(path.extname(name), '');
 
-    dust.onLoad = dust.onLoad || function (name, fn) {
-        fs.readFile(file, 'utf8', function (err, data) {
-            try {
+function buildRenderer(preprocessor, handler) {
+    return function render(file, options, fn) {
+        var ext, name;
 
-                !err && dust.loadSource(data);
+        ext = options.settings.ext = path.extname(file);
+        name = path.relative(options.settings.views, file);
+        name = name.replace(ext, '');
 
-            } catch (error) {
-                err = error;
-            } finally {
-                fn(err);
-            }
-        });
+        dust.onLoad = dust.onLoad || function onLoad(name, fn) {
+            fs.readFile(file, 'utf8', function (err, data) {
+                try {
+
+                    !err && preprocessor(data, name);
+
+                } catch (error) {
+                    err = error;
+                } finally {
+                    fn(err);
+                }
+            });
+        };
+
+        handler(name, options, fn);
     };
+}
 
-    dust.render(name, options, fn);
-};
+
+exports.dust = buildRenderer(loadSourcePreprocessor, renderHandler);
+
+
+exports.compiledDust = buildRenderer(compileAndLoadPreprocessor, renderHandler);
+
+
+exports.streamedDust = buildRenderer(loadSourcePreprocessor, streamHandler);
+
+
+exports.streamedCompiledDust = buildRenderer(compileAndLoadPreprocessor, streamHandler);
