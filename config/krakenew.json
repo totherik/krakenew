@@ -1,6 +1,6 @@
 {
     "view engines": {
-        "js": {
+        "dust_compiled": {
             "module": "path:./templates/index",
             "renderer": "compiledDust",
             "name": "dust"
@@ -10,11 +10,31 @@
             "renderer": "dust",
             "name": "dust"
         },
-        "dust": {
+        "dust_stream": {
             "module": "path:./templates/index",
             "renderer": "streamedDust",
             "name": "dust"
+        },
+        "dust": {
+            "module": "adaro",
+            "rendererFactory": {
+                "method": "dust",
+                "arguments": [{ "cache": false }]
+            }
+        },
+        "js": {
+            "module": "adaro",
+            "rendererFactory": {
+                "method": "js",
+                "arguments": [{ "cache": false }]
+            }
         }
+    },
+
+    "i18n": {
+        "contentPath": "path:./locales",
+        "fallback": "US-en",
+        "templatePath": "path:./bin/views"
     },
 
     "middleware": {
@@ -34,6 +54,7 @@
 
     "express": {
         "view engine": "js",
+        "view cache": true,
         "views": "path:./bin/views"
     }
 }

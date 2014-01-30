@@ -5,6 +5,6 @@
     </head>
     <body>
         {>"greeting"/}
-        <p>Hello, {name}, how's {>"partial"/}?</p>
+        <p>{@pre type="content" key="greeting" /} {name}, how's {>"partial"/}?</p>
     </body>
 </html>

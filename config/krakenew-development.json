@@ -1,6 +1,11 @@
 {
+    "i18n": {
+        "templatePath": "path:./views"
+    },
+
     "express": {
         "view engine": "dust",
+        "view cache": false,
         "views": "path:./views"
     }
 }
